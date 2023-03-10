@@ -14,6 +14,10 @@ Output: false
 
 Time: O(N) Space: O(N)
 
+
+After looking at solution this can be done in O(1) time. An array of 26 characters (alphabet) and you iterate through the 
+string counting the upping the count in each index and using charCode. 
+
 */
 
 const isAnagram = (s, t) => {
