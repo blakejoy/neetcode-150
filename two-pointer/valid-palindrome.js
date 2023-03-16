@@ -56,59 +56,49 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 //   return true;
 // };
 
-// var isPalindrome = function (s) {
-//   if (s.length === 1) {
-//     return true;
-//   }
+var isPalindrome = function (s) {
+  if (s.length === 1) {
+    return true;
+  }
 
-//   if (s.length === 2) {
-//     return s.charAt(0) === s.charAt(1);
-//   }
+  const lowerWithoutSpaceString = s.toLowerCase();
 
-//   const lowerWithoutSpaceString = s.toLowerCase();
+  let left = 0;
+  let right = lowerWithoutSpaceString.length - 1;
 
-//   let left = 0;
-//   let right = lowerWithoutSpaceString.length - 1;
+  while (left < right) {
+    let leftChar = lowerWithoutSpaceString.charAt(left);
+    let rightChar = lowerWithoutSpaceString.charAt(right);
 
-//   while (left < right) {
-//     let leftChar = lowerWithoutSpaceString.charAt(left);
-//     let rightChar = lowerWithoutSpaceString.charAt(right);
+    while (!isAlphaNumeric(leftChar.charCodeAt()) && left < right) {
+      left++;
+      leftChar = lowerWithoutSpaceString.charAt(left);
+    }
 
-//     while (!isAlphaNumeric(leftChar.charCodeAt())) {
-//       left++;
-//       if (left > right) {
-//         return false;
-//       }
-//       leftChar = lowerWithoutSpaceString.charAt(left);
-//     }
+    while (!isAlphaNumeric(rightChar.charCodeAt()) && right > left) {
+      right--;
+      rightChar = lowerWithoutSpaceString.charAt(right);
+    }
 
-//     while (!isAlphaNumeric(rightChar.charCodeAt())) {
-//       right--;
-//       if (right < left) {
-//         return false;
-//       }
-//       rightChar = lowerWithoutSpaceString.charAt(right);
-//     }
+    if (leftChar !== rightChar) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+};
 
-//     if (leftChar !== rightChar) {
-//       return false;
-//     }
-//     left++;
-//     right--;
-//   }
-//   return true;
-// };
+const isAlphaNumeric = (character) => {
+  const firstAlphabet = 'a'.charCodeAt();
+  const lastAlphabet = 'z'.charCodeAt();
+  const firstNumber = '0'.charCodeAt();
+  const lastNumber = '9'.charCodeAt();
 
-// const isAlphaNumeric = (character) => {
-//   const firstAlphabet = 'a'.charCodeAt();
-//   const lastAlphabet = 'z'.charCodeAt();
-//   const firstNumber = '0'.charCodeAt();
-//   const lastNumber = '9'.charCodeAt();
-
-//   const isAlphabet = character >= firstAlphabet && character <= lastAlphabet;
-//   const isNumeric = character >= firstNumber && character <= lastNumber;
-//   return isAlphabet || isNumeric;
-// };
+  const isAlphabet = character >= firstAlphabet && character <= lastAlphabet;
+  const isNumeric = character >= firstNumber && character <= lastNumber;
+  return isAlphabet || isNumeric;
+};
 console.log(isPalindrome('a.'));
 
 console.log(isPalindrome('A man, a plan, a canal: Panama'));
